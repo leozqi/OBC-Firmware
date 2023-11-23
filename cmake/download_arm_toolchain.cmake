@@ -16,14 +16,15 @@ function(host_uname_machine var)
 endfunction()
 
 # Download GNU embedded toolchain
+# APPLE has been updated to Arm GNU Toolchain 13.2Rel1
 if(WIN32)
     set(TOOLCHAIN_URL "https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-mingw-w64-i686-arm-none-eabi.zip")
 elseif(APPLE)
     host_uname_machine(machine)
     if(machine STREQUAL "x86_64")
-        set(TOOLCHAIN_URL "https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-darwin-x86_64-arm-none-eabi.tar.xz")
+        set(TOOLCHAIN_URL "https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-darwin-x86_64-arm-none-eabi.tar.xz")
     elseif(machine STREQUAL "arm64")
-        set(TOOLCHAIN_URL "https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-darwin-arm64-arm-none-eabi.tar.xz")
+        set(TOOLCHAIN_URL "https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-darwin-arm64-arm-none-eabi.tar.xz")
     else()
         message(FATAL_ERROR "Unsupported machine")
     endif()
