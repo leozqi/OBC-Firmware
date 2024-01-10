@@ -15,7 +15,13 @@ else()
     message(FATAL_ERROR "Invalid board type: ${BOARD_TYPE}")
 endif()
 
-add_executable(OBC-firmware.out main.c)
+if(${CMAKE_BUILD_TYPE} MATCHES OBC)
+	add_executable(OBC-firmware.out main.c)
+elseif(${CMAKE_BUILD_TYPE} MATCHES Examples)
+	add_executable(OBC-firmware.out examples/dma_spi_demo/main.c)
+else()
+	message(FATAL_ERROR "Invalid build type: ${CMAKE_BUILD_TYPE}")
+endif()
 
 target_link_options(OBC-firmware.out PRIVATE
     -specs=nosys.specs
@@ -52,6 +58,8 @@ add_subdirectory(drivers)
 add_subdirectory(sys)
 add_subdirectory(modules)
 add_subdirectory(reliance_edge)
+
+
 
 target_link_libraries(OBC-firmware.out PRIVATE
     tiny-aes
